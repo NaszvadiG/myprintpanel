@@ -77,8 +77,17 @@
 				);
 				
 				$this->Accounts_Model->register_account($data);
-				$this->load->template('accounts/activate');
+				
+				// load email model
+				$this->load->model('Emails_Model');
+				$this->Emails_Model->send_activation_code($this->input->post('account_email'));
+				redirect('/activate');
 			}
+		}
+		
+		public function activate_page()
+		{
+			$this->load->view('accounts/activate');
 		}
 		
 		public function login()
