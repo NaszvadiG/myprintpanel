@@ -1,0 +1,6 @@
+{
+    "require": {
+        "drewm/mailchimp-api": "^2.4",
+        "mandrill/mandrill": "^1.0"
+    }
+}
