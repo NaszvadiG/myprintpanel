@@ -30,21 +30,53 @@
 		{
 			
 			
-			$this->form_validation->set_rules('account_fname', 'First name', 'required');
-			$this->form_validation->set_rules('account_lname', 'Last name', 'required');
-			$this->form_validation->set_rules('account_phone', 'Phone', 'required|is_unique[accounts.account_phone]|regex_match[/^[0-9]{10}$/]');
+			$this->form_validation->set_rules('account_name', 'Full name', 'required');
+			$this->form_validation->set_rules('account_phone', 'Phone', 'required|is_unique[accounts.account_phone]|regex_match[/^[0-9]{11}$/]');
 			$this->form_validation->set_rules('account_email', 'Email', 'required|valid_email|is_unique[accounts.account_email]');
 			$this->form_validation->set_rules('account_password', 'Password', 'required');
 			
 			if ($this->form_validation->run() === FALSE)
 			{	
-				echo phpinfo();
-				echo $this->Accounts_Model->generateVerificationCode();
 				$this->load->view('accounts/register');
 			}
 			else
 			{
-				$this->Accounts_Model->insert_account();
+				$account_name = explode(' ', $this->input->post('account_name'));
+				
+				if(count($account_name)==2)
+				{
+					$account_fname = $account_name[0];
+					$account_lname	= $account_name[1];
+				}
+				else // multiple names
+				{
+					$account_fname = array();
+					
+					foreach($account_name as $name)
+					{
+						// remove last name
+						if($name!=$account_name[count($account_name)-1])
+						{
+							array_push($account_fname, $name);
+						}
+					}
+					
+					$account_fname = implode(' ', $account_fname);
+					$account_lname = $account_name[count($account_name)-1]; // Last chunk from the array will be the last name
+				}
+				
+				$data = array
+				(
+					'account_fname' => $account_fname,
+					'account_lname' => $account_lname,
+					'account_email' => $this->input->post('account_email'),
+					'account_phone' => $this->input->post('account_phone'),
+					'account_password' => password_encrypt($this->input->post('account_password')),
+					'account_code'	=>	$this->Accounts_Model->generate_verification_code(),
+					'account_created' => date('Y-m-d H:i:s')
+				);
+				
+				$this->Accounts_Model->register_account($data);
 				$this->load->template('accounts/activate');
 			}
 		}

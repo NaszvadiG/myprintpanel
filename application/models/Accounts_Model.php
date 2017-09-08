@@ -9,6 +9,7 @@
 		
 		public function register_account($data)
 		{
+			return $this->db->insert('accounts', $data);
 		}
 		
 		/*
@@ -28,10 +29,12 @@
 			$bytes = (int) ($log / 8) + 1; // length in bytes
 			$bits = (int) $log + 1; // length in bits
 			$filter = (int) (1 << $bits) - 1; // set all lower bits to 1
-			do {
+			do 
+			{
 				$rnd = hexdec(bin2hex(openssl_random_pseudo_bytes($bytes)));
 				$rnd = $rnd & $filter; // discard irrelevant bits
 			} while ($rnd > $range);
+			
 			return $min + $rnd;
 		}
 
@@ -49,7 +52,7 @@
 			return $token;
 		}
 		
-		public function generateVerificationCode()
+		public function generate_verification_code()
 		{
 			return strtoupper($this->getToken(5));
 		}
