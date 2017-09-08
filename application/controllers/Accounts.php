@@ -65,6 +65,8 @@
 					$account_lname = $account_name[count($account_name)-1]; // Last chunk from the array will be the last name
 				}
 				
+				$account_code = $this->Accounts_Model->generate_verification_code();
+				
 				$data = array
 				(
 					'account_fname' => $account_fname,
@@ -72,7 +74,7 @@
 					'account_email' => $this->input->post('account_email'),
 					'account_phone' => $this->input->post('account_phone'),
 					'account_password' => password_encrypt($this->input->post('account_password')),
-					'account_code'	=>	$this->Accounts_Model->generate_verification_code(),
+					'account_code'	=>	$account_code,
 					'account_created' => date('Y-m-d H:i:s')
 				);
 				
@@ -80,7 +82,7 @@
 				
 				// load email model
 				$this->load->model('Emails_Model');
-				$this->Emails_Model->send_activation_code($this->input->post('account_email'));
+				$this->Emails_Model->send_activation_code($this->input->post('account_email'), $account_code);
 				redirect('/activate');
 			}
 		}

@@ -6,6 +6,10 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit6e72dccf967b384280ef1e488a91880a
 {
+    public static $files = array (
+        '4690a9e7c83fb47f18a4e2fd55ea4358' => __DIR__ . '/..' . '/textmagic/sdk/Services/TextmagicRestClient.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'D' => 
         array (

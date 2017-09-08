@@ -20,6 +20,33 @@
 								<img src="/public/img/logo-xx.png" alt="logo" height="50" class="logo-img"><span class="splash-description">Please enter your user information.</span>
 							</div>
 							<div class="panel-body">
+							<?php
+							use Textmagic\Services\TextmagicRestClient;
+								$client = new TextmagicRestClient('georgedobre', 'Wt0HWLpMMhsnitKTSuQa2qW45gf4h9');
+$result = ' ';
+try {
+    $result = $client->messages->create(
+        array(
+			'sender' => 'MyPP',
+            'text' => 'Hello from MyPrintPanel with sender ID',
+            'phones' => implode(', ', array('+447841582659', '+447462102832'))
+        )
+    );
+}
+catch (\Exception $e) {
+    if ($e instanceof RestException) {
+        print '[ERROR] ' . $e->getMessage() . "\n";
+        foreach ($e->getErrors() as $key => $value) {
+            print '[' . $key . '] ' . implode(',', $value) . "\n";
+        }
+    } else {
+        print '[ERROR] ' . $e->getMessage() . "\n";
+    }
+    return;
+}
+echo $result['id'];
+
+?>
 								<form action="<?php echo base_url('activate'); ?>" method="post" data-parsley-validate=""><span class="splash-title xs-pb-20">Activate your account</span>
 								<?php echo validation_errors('<div>', '</div>'); ?>
 									<div class="form-group">

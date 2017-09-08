@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "44dad0b6f705e304072ae33262a75b62",
-    "content-hash": "1a4f9985272ecbfaecc393fbfb9463eb",
+    "hash": "5221ca1655f729d26b342a61f1109af8",
+    "content-hash": "83b2648d10d1b7171bec591de6174808",
     "packages": [
         {
             "name": "drewm/mailchimp-api",
@@ -94,11 +94,59 @@
             "time": "2015-09-22 13:58:03"
         }
     ],
-    "packages-dev": [],
+    "packages-dev": [
+        {
+            "name": "textmagic/sdk",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/textmagic/textmagic-rest-php.git",
+                "reference": "b81cd04df7ab6fd21f0ddd75bf987cf3f65fe9c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/textmagic/textmagic-rest-php/zipball/b81cd04df7ab6fd21f0ddd75bf987cf3f65fe9c6",
+                "reference": "b81cd04df7ab6fd21f0ddd75bf987cf3f65fe9c6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "Services/TextmagicRestClient.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Denis",
+                    "email": "denis@textmagic.com"
+                }
+            ],
+            "description": "A PHP wrapper for Textmagic API",
+            "homepage": "http://github.com/textmagic/textmagic-rest-php",
+            "keywords": [
+                "api",
+                "sms",
+                "textmagic"
+            ],
+            "time": "2015-10-26 14:22:41"
+        }
+    ],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
-    "prefer-stable": false,
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "textmagic/sdk": 20
+    },
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": []
