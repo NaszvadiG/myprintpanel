@@ -7,10 +7,76 @@
 			parent::__construct();
 		}
 		
+		public function get_account($account_id)
+		{
+			$query = $this->db->select('*')->get_where('accounts', array('account_id' => $account_id));
+			
+			if($query && $query->num_rows()==1)
+			{
+				return $query->row_array();
+			}
+			else
+			{
+				return 'f*** error mate';
+			}
+		}
+		
 		public function register_account($data)
 		{
-			return $this->db->insert('accounts', $data);
+			if($this->db->insert('accounts', $data) && $this->db->affected_rows()==1)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
+		
+		public function activate_account($account_code)
+		{
+			$query = $this->db->select('account_code')->where('account_code', $account_code)->get('accounts');
+			if($query->num_rows()==1)
+			{
+				
+				if($this->db->where('account_code', $account_code)->update('accounts', array('account_phone_verified' => 1)) && $this->db->affected_rows()==1)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
+		public function login_account($data)
+		{
+			$query = $this->db->select('account_id, account_fname, account_lname, account_email, account_phone, account_password')->get_where('accounts', array('account_email' => $data['account_email']));
+			
+			if($query->num_rows()==1)
+			{
+				$result = $query->row();
+				
+				if(password_verify($data['account_password'], $result->account_password))
+				{
+					return $result;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
+
 		
 		/*
 		* Author: George Dobre

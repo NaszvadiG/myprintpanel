@@ -15,12 +15,20 @@ class ComposerStaticInit6e72dccf967b384280ef1e488a91880a
         array (
             'DrewM\\MailChimp\\' => 16,
         ),
+        'A' => 
+        array (
+            'ActiveCollab\\SDK\\' => 17,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'DrewM\\MailChimp\\' => 
         array (
             0 => __DIR__ . '/..' . '/drewm/mailchimp-api/src',
+        ),
+        'ActiveCollab\\SDK\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/activecollab/activecollab-feather-sdk/src',
         ),
     );
 

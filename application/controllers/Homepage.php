@@ -5,9 +5,8 @@
 		public function __construct()
 		{
 			parent::__construct();
-			if ( ! $this->session->userdata('logged_in'))
+			if ( ! $this->session->userdata('account_loggedin'))
 			{ 
-				// Allow some methods?
 				$allowed = array(
 					'some_method_in_this_controller',
 					'other_method_in_this_controller',
@@ -21,7 +20,9 @@
 		
 		public function index()
 		{
-			$this->load->view('homepage');
+			$data = array('user' => $_SESSION, 'webpage_title' => 'Dashboard');
+			
+			$this->load->template('homepage', $data);
 		}
 	}
 	

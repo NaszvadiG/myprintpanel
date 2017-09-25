@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'DrewM\\MailChimp\\' => array($vendorDir . '/drewm/mailchimp-api/src'),
+    'ActiveCollab\\SDK\\' => array($vendorDir . '/activecollab/activecollab-feather-sdk/src'),
 );

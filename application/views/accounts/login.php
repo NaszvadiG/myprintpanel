@@ -18,12 +18,23 @@
             <div class="panel panel-default panel-border-color panel-border-color-primary">
               <div class="panel-heading"><img src="assets/img/logo-xx.png" alt="logo" width="102" height="27" class="logo-img"><span class="splash-description">Please enter your user information.</span></div>
               <div class="panel-body">
-                <form action="index.html" method="get">
+				<?php
+				
+					if(isset($_GET['activated']) && $_GET['activated']=='true')
+					{
+						echo '<div role="alert" class="alert alert-success alert-dismissible">
+                    <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true" class="mdi mdi-close"></span></button><span class="icon mdi mdi-check"></span><strong>Awesome!</strong> Your account has been activated. You can login using the credentials provided at the time of the registration
+                  </div>';
+					}
+					
+				?>
+                <form action=<?php echo base_url('login'); ?> method="post">
+				<?php echo validation_errors('<div>', '</div>'); ?>
                   <div class="form-group">
-                    <input id="username" type="text" placeholder="Username" autocomplete="off" class="form-control">
+                    <input name="login_email" id="login_email" type="text" placeholder="E-mail address" autocomplete="off" class="form-control">
                   </div>
                   <div class="form-group">
-                    <input id="password" type="password" placeholder="Password" class="form-control">
+                    <input name="login_password" id="login_password" type="password" placeholder="Password" class="form-control">
                   </div>
                   <div class="form-group row login-tools">
                     <div class="col-xs-6 login-remember">

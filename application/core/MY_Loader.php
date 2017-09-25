@@ -39,8 +39,9 @@ class MY_Loader extends CI_Loader {
 	
 	function template($template_name, $data = array(), $return = FALSE)
 	{
-		$data['accounts_navigation'] = $this->view('templates/accounts/navigation', NULL, TRUE);
-		$data['navigation'] = 	$this->view('templates/header', NULL, TRUE);
+		$data['sidebar'] = $this->view('templates/sidebar', $data, TRUE);
+		$data['sidebar_right'] = $this->view('templates/sidebar_right', NULL, TRUE);
+		$data['header'] = 	$this->view('templates/header', $data, TRUE);
 		$data['footer'] 	= 	$this->view('templates/footer', NULL, TRUE);
 		
 		$this->load->view($template_name, $data);

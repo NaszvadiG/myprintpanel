@@ -58,7 +58,7 @@
 			$async = false;
 			$ip_pool = 'Main Pool';
 			$result = $mandrill->messages->sendTemplate('myprintpanel-com-activate-email', $template_content, $message, $async, $ip_pool);
-			return print_r($result);
+			// return print_r($result);
 		}
 	}
 	

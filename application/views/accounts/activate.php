@@ -17,40 +17,19 @@
 					<div class="splash-container sign-up">
 						<div class="panel panel-default panel-border-color panel-border-color-primary">
 							<div class="panel-heading">
-								<img src="/public/img/logo-xx.png" alt="logo" height="50" class="logo-img"><span class="splash-description">Please enter your user information.</span>
+								<img src="/public/img/logo-xx.png" alt="logo" height="50" class="logo-img"><span class="splash-description">Please enter your activation code.</span>
 							</div>
 							<div class="panel-body">
-							<?php
-							use Textmagic\Services\TextmagicRestClient;
-								$client = new TextmagicRestClient('georgedobre', 'Wt0HWLpMMhsnitKTSuQa2qW45gf4h9');
-$result = ' ';
-try {
-    $result = $client->messages->create(
-        array(
-			'sender' => 'MyPP',
-            'text' => 'Hello from MyPrintPanel with sender ID',
-            'phones' => implode(', ', array('+447841582659', '+447462102832'))
-        )
-    );
-}
-catch (\Exception $e) {
-    if ($e instanceof RestException) {
-        print '[ERROR] ' . $e->getMessage() . "\n";
-        foreach ($e->getErrors() as $key => $value) {
-            print '[' . $key . '] ' . implode(',', $value) . "\n";
-        }
-    } else {
-        print '[ERROR] ' . $e->getMessage() . "\n";
-    }
-    return;
-}
-echo $result['id'];
-
-?>
 								<form action="<?php echo base_url('activate'); ?>" method="post" data-parsley-validate=""><span class="splash-title xs-pb-20">Activate your account</span>
 								<?php echo validation_errors('<div>', '</div>'); ?>
+								<div role="alert" class="alert alert-primary alert-icon alert-icon-border alert-dismissible">
+                    <div class="icon"><span class="mdi mdi-info-outline"></span></div>
+                    <div class="message">
+                      <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true" class="mdi mdi-close"></span></button><strong>Info</strong> You should receive a text with your activation code. If the phone number you provided is incorect, please check your e-mail address
+                    </div>
+                  </div>
 									<div class="form-group">
-										<input type="text" name="account_code" id="account_code" required="required" data-required="true" parsley-error-message="Please insert your name" data-required-message="Please insert your Full name" placeholder="Full name" autocomplete="off" class="form-control">
+										<input type="text" name="account_code" id="account_code" value="<?php echo $account_code; ?>" required="required" data-required="true" parsley-error-message="Please insert your name" data-required-message="Please insert your Full name" placeholder="Activation code" autocomplete="off" class="form-control">
 									</div>
 									<div class="form-group xs-pt-10">
 										<button type="submit" class="btn btn-block btn-primary btn-xl">Activate</button>
