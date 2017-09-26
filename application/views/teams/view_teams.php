@@ -61,36 +61,6 @@
                         </tr>
                       </thead>
                       <tbody>
-						<?php
-							foreach($projects as $project)
-							{
-								echo '
-								<tr>
-									<td>
-										<div class="be-checkbox be-checkbox-sm">
-											<input id="check2" type="checkbox">
-											<label for="check2"></label>
-										</div>
-									</td>
-									<td>' . $project['project_name'] . '</td>
-									<td>0/0</td>
-									<td>' . $project['project_tasks_count'] . '</td>
-									<td align="center"></td>
-									<td>0/0</td>
-									<td>0/0</td>
-									<td class="text-right">
-										<div class="btn-group btn-hspace">
-											<button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">Options <span class="icon-dropdown mdi mdi-chevron-down"></span></button>
-                              <ul role="menu" class="dropdown-menu pull-right">
-                                <li><a href="' . base_url('projects/view/' . $project['project_id']) . '">View</a></li>
-                                <li><a href="#' . $project['project_id'] . '" style="color: #FF0000;" data-modal="delete_project_modal">Delete</a></li>
-                              </ul>
-                            </div>
-                          </td>
-								</tr>';
-							}
-							
-						?>
                         <!--<tr>
                           <td>
                             <div class="be-checkbox be-checkbox-sm">

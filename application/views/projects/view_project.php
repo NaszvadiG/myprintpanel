@@ -63,7 +63,7 @@
             <!--Responsive table-->
             <div class="col-sm-8">
               <div class="panel panel-default panel-table">
-                <div class="panel-heading">
+			  <div class="panel-heading">
 				<?= $project['project_name']; ?>
                   <div class="tools dropdown">
 					<a href="#" id="add_project_task"  data-toggle="modal" data-target="#add_task_modal" class="btn btn-success"><span class="mdi mdi-plus-square"></span> Add task</a> 
@@ -71,54 +71,88 @@
 					
                   </div>
                 </div>
+				  <div class="tab-container">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tasks" data-toggle="tab">Tasks</a></li>
+                    <li><a href="#files" data-toggle="tab">Files</a></li>
+                    <li><a href="#notes" data-toggle="tab">Notes</a></li>
+                    <li><a href="#activity" data-toggle="tab">Activity</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div id="tasks" class="tab-pane active cont">
+					
+				  
+                
+				
                 <div class="panel-body">
 					<table class="table table-striped">
-					<thead>
-						<th>Name</th>
-						<th>Comments</th>
-						<th>Asignee</th>
-						<th>Options</th>
-					</thead>
-					<tbody>
-					<?php
-					
+						<thead>
+							<th>&nbsp;</th>
+							<th>Name</th>
+							<th>Comments</th>
+							<th>Asignee</th>
+							<th>&nbsp;</th>
+						</thead>
+						<tbody id="sortable">
+						<?php
+
 						foreach($project_tasks as $project_task)
 						{
-							echo '<tr><td>' . $project_task['project_task_name'];
-							
-							foreach($project_task['activecollab']['labels'] as $label)
-							{
-								echo ' <span class="label" style="background-color: ' . $label['color'] . '">' . $label['name'] . '</span>';
-							}
-							
-							
-							echo '</td><td><span class="badge badge-default">' . $project_task['activecollab']['comments_count'] . ' <i class="icon mdi icon mdi-comment-more"></i></span></td><td>';
-							
-							echo 'asigness';
-							
-							echo '</td><td width="1%"><a href="#" class="btn btn-success">Options</a></tr>';
+						echo '
+						<tr>
+							<td width="1"><span class="mdi mdi-more-vert" style="cursor: move;"></span></td>
+							<td>
+								<div class="be-checkbox">
+									<input id="check1" type="checkbox">
+									<label for="check1">' . $project_task['project_task_name'] . '</label>
+								</div>
+							</td>
+							<td></td>
+							<td></td>
+							<td class="text-right">
+								<div class="btn-group btn-hspace">
+									<button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">Options <span class="icon-dropdown mdi mdi-chevron-down"></span></button>
+									<ul role="menu" class="dropdown-menu pull-right">
+										<li><a class="view_project_task"  data-toggle="modal" data-target="#view_project_task_modal"  href="' . base_url('projects/view/' . $project_task['project_id'] . '/task/' . $project_task['project_task_id']) . '">View</a></li>
+										<li><a href="' . base_url('projects/view/' . $project['project_id']) . '">Delete</a></li>
+									</ul>
+								</div>
+							</td>
+						</tr>';
 						}
-						
-					?>
-					</tbody>
+
+						?>
+						</tbody>
 					</table>
+                </div>
+                    </div>
+                    <div id="files" class="tab-pane cont">
+						<h3 title="Files">Files</h3><div class="tools dropdown">
+					<a href="#" id="upload_project_file" class="btn btn-primary"><span class="mdi mdi-plus-square"></span> Upload file</a> 
+                    
+					
+                  </div>
+                      <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima praesentium laudantium ipsa, enim maxime placeat, dolores quos sequi nisi iste velit perspiciatis rerum eveniet voluptate laboriosam perferendis ipsum. Expedita, maiores.</p>
+                      <p> Consectetur adipisicing elit. Minima praesentium laudantium ipsa, enim maxime placeat, dolores quos sequi nisi iste velit perspiciatis rerum eveniet voluptate laboriosam perferendis ipsum. Expedita, maiores.</p>
+                    </div>
+                    <div id="notes" class="tab-pane">
+						<h3 title="Notes">Notes</h3>
+                      <p>Consectetur adipisicing elit. Ipsam ut praesentium, voluptate quidem necessitatibus quam nam officia soluta aperiam, recusandae.</p>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos facilis laboriosam, vitae ipsum tenetur atque vel repellendus culpa reiciendis velit quas, unde soluta quidem voluptas ipsam, rerum fuga placeat rem error voluptate eligendi modi. Delectus, iure sit impedit? Facere provident expedita itaque, magni, quas assumenda numquam eum! Sequi deserunt, rerum.</p><a href="#">Read more  </a>
+                    </div>
+                    <div id="activity" class="tab-pane">
+						<h3 title="Activity">Activity</h3>
+                      <p>Consectetur adipisicing elit. Ipsam ut praesentium, voluptate quidem necessitatibus quam nam officia soluta aperiam, recusandae.</p>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos facilis laboriosam, vitae ipsum tenetur atque vel repellendus culpa reiciendis velit quas, unde soluta quidem voluptas ipsam, rerum fuga placeat rem error voluptate eligendi modi. Delectus, iure sit impedit? Facere provident expedita itaque, magni, quas assumenda numquam eum! Sequi deserunt, rerum.</p><a href="#">Read more  </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             <!--Responsive table-->
             <div class="col-sm-4">
               <div class="panel panel-default panel-table">
-                <div class="panel-heading">Info
-                  <div class="tools dropdown"><a href="#" data-toggle="modal" data-target="#form-bp1" class="btn btn-success"><span class="mdi mdi-plus-square"></span> Add project</a> <a href="#" type="button" data-toggle="dropdown" class="dropdown-toggle"><span class="icon mdi mdi-more-vert"></span></a>
-                    <ul role="menu" class="dropdown-menu pull-right">
-                      <li><a href="#">Export PDF</a></li>
-                      <li><a href="#">Export Excel</a></li>
-                      <li><a href="#">Something else here</a></li>
-                      <li class="divider"></li>
-                      <li><a href="#">Separated link</a></li>
-                    </ul>
-                  </div>
-                </div>
+                <div class="panel-heading">Team</div>
                 <div class="panel-body">
                   <!--<div class="table-responsive noSwipe"> / enable responsivness -->
                   <div>
@@ -138,7 +172,6 @@
         <div class="modal-content">
 			<form id="add_project_task">
 				<input type="hidden" name="project_id" id="project_id" value="<?= $project['project_id']; ?>"/>
-				<input type="hidden" name="activecollab_project_id" id="activecollab_project_id" value="<?= $project['activecollab_project_id']; ?>"/>
           <div class="modal-header">
             <button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close"><span class="mdi mdi-close"></span></button>
             <h3 class="modal-title">Add task to <?= $project['project_name']; ?></h3>
@@ -163,11 +196,31 @@
       </div>
     </div>
 	<!-- Add project modal end   -->
+	<!-- Add project modal start -->
+	<div id="view_project_task_modal" tabindex="-1" role="dialog" class="modal fade colored-header colored-header-primary">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+			<!-- loading -->
+        </div>
+      </div>
+    </div>
+	<!-- Add project modal end   -->
     <?= global_load_scripts(); ?>
     <script type="text/javascript">
       $(document).ready(function(){
       	//initialize the javascript
       	App.init();
+		
+		$( "#sortable" ).sortable({
+      placeholder: "ui-state-highlight"
+    });
+	
+		$('a.view_project_task').click(function(event)
+		{
+			event.preventDefault();
+			var url = $(this).attr('href');
+			$('div#view_project_task_modal .modal-content').load(url);
+		});
 		
 		$('button#add_project_task').click(function(event)
 		{
@@ -223,5 +276,6 @@
 		// });
       });
     </script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   </body>
 </html>

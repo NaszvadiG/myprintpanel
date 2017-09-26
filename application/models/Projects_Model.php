@@ -198,6 +198,31 @@
 			
 			return $query;
 		}
+		
+		public function get_project_task($project_id, $project_task_id)
+		{
+			try 
+			{
+				$query = $this->db->select('*')->from('projects_tasks')->where('project_id', $project_id)->where('project_task_id', $project_task_id)->get();
+			
+				if($query->num_rows()==1)
+				{
+					return $query->row_array();
+				}
+				else
+				{
+					return false;
+				}
+			}
+			catch(Exception $e)
+			{
+			}
+		}
+		
+		public function add_discussion()
+		{
+			
+		}
 	}
 	
 ?>
