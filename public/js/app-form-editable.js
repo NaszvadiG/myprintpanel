@@ -37,14 +37,15 @@ var App = (function () {
 
 		//make group editable
 		$('#group').editable({
-			showbuttons: false,
+			showbuttons: true,
 			source: [
 				{value: 1, text: 'Admin'},
 				{value: 2, text: 'Support'},
 				{value: 3, text: 'Operator'},
 				{value: 4, text: 'Customer'},
 				{value: 5, text: 'Service'}
-			]
+			],
+			placement: 'right'
 		});
 
 		//make status editable

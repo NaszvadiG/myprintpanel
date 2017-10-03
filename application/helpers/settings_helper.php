@@ -16,4 +16,12 @@
 		}
 	}
 	
+	function get_setting($setting_code)
+	{
+		$CI =& get_instance();
+		$query = $CI->db->get_where('settings', array('setting_code' => $setting_code));
+		$result = $query->row_array();
+		return $result['setting_value'];
+	}
+	
 ?>

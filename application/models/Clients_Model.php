@@ -11,6 +11,18 @@
 			} catch(Exception $ex) {
 			}
 		}
+		
+		public function add_client($data)
+		{
+			if($this->db->insert('clients', $data) && $this->db->affected_rows()==1)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 	}
 	
 ?>

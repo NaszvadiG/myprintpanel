@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="<?php echo base_url('public/img'); ?>/logo-fav.png">
     <title><?= get_website_title('Clients'); ?></title>
     <?= global_load_styles(); ?>
+	 <link rel="stylesheet" type="text/css" href="<?= base_url('public/lib/summernote/summernote.css'); ?>"/>
   </head>
   <body>
     <div class="be-wrapper">
@@ -66,16 +67,16 @@
 			  <div class="panel-heading">
 				<?= $project['project_name']; ?>
                   <div class="tools dropdown">
-					<a href="#" id="add_project_task"  data-toggle="modal" data-target="#add_task_modal" class="btn btn-success"><span class="mdi mdi-plus-square"></span> Add task</a> 
-                    <a href="#" id="add_project_milestone" class="btn btn-default"><span class="mdi mdi-plus-square"></span> Add milestone</a>
+					<a href="#" id="add_project_task"  data-toggle="modal" data-target="#add_task_modal" class="btn btn-success"><span class="mdi mdi-plus-square"></span> Add task</a>  
+                    <!--<a href="#" id="add_project_milestone" class="btn btn-default"><span class="mdi mdi-plus-square"></span> Add milestone</a>-->
 					
                   </div>
                 </div>
 				  <div class="tab-container">
-                  <ul class="nav nav-tabs">
+                  <ul class="nav nav-tabs nav-tabs-success">
                     <li class="active"><a href="#tasks" data-toggle="tab">Tasks</a></li>
-                    <li><a href="#files" data-toggle="tab">Files</a></li>
-                    <li><a href="#notes" data-toggle="tab">Notes</a></li>
+                    <li><a href="#project_files" data-toggle="tab">Files</a></li>
+                    <li><a href="#project_notes" data-toggle="tab">Notes</a></li>
                     <li><a href="#activity" data-toggle="tab">Activity</a></li>
                   </ul>
                   <div class="tab-content">
@@ -89,9 +90,7 @@
 						<thead>
 							<th>&nbsp;</th>
 							<th>Name</th>
-							<th>Comments</th>
 							<th>Asignee</th>
-							<th>&nbsp;</th>
 						</thead>
 						<tbody id="sortable">
 						<?php
@@ -99,25 +98,15 @@
 						foreach($project_tasks as $project_task)
 						{
 						echo '
-						<tr>
+						<tr id="view_project_task" data-toggle="modal" data-target="#view_project_task_modal"  href="' . base_url('projects/view/' . $project_task['project_id'] . '/task/' . $project_task['project_task_id']) . '">
 							<td width="1"><span class="mdi mdi-more-vert" style="cursor: move;"></span></td>
 							<td>
 								<div class="be-checkbox">
-									<input id="check1" type="checkbox">
+									<input id="check1" value="' . $project_task['project_task_id'] . '" type="checkbox">
 									<label for="check1">' . $project_task['project_task_name'] . '</label>
 								</div>
 							</td>
-							<td></td>
-							<td></td>
-							<td class="text-right">
-								<div class="btn-group btn-hspace">
-									<button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">Options <span class="icon-dropdown mdi mdi-chevron-down"></span></button>
-									<ul role="menu" class="dropdown-menu pull-right">
-										<li><a class="view_project_task"  data-toggle="modal" data-target="#view_project_task_modal"  href="' . base_url('projects/view/' . $project_task['project_id'] . '/task/' . $project_task['project_task_id']) . '">View</a></li>
-										<li><a href="' . base_url('projects/view/' . $project['project_id']) . '">Delete</a></li>
-									</ul>
-								</div>
-							</td>
+							<td align="center" width="1"><img src="' . get_avatar($project_task['asignee_id']) . '" class="img-circle" style="height: 35px;" title="' . $project_task['account_fname'] . ' ' . $project_task['account_lname'] . '"></td>
 						</tr>';
 						}
 
@@ -126,19 +115,72 @@
 					</table>
                 </div>
                     </div>
-                    <div id="files" class="tab-pane cont">
-						<h3 title="Files">Files</h3><div class="tools dropdown">
-					<a href="#" id="upload_project_file" class="btn btn-primary"><span class="mdi mdi-plus-square"></span> Upload file</a> 
-                    
-					
-                  </div>
-                      <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima praesentium laudantium ipsa, enim maxime placeat, dolores quos sequi nisi iste velit perspiciatis rerum eveniet voluptate laboriosam perferendis ipsum. Expedita, maiores.</p>
-                      <p> Consectetur adipisicing elit. Minima praesentium laudantium ipsa, enim maxime placeat, dolores quos sequi nisi iste velit perspiciatis rerum eveniet voluptate laboriosam perferendis ipsum. Expedita, maiores.</p>
-                    </div>
-                    <div id="notes" class="tab-pane">
-						<h3 title="Notes">Notes</h3>
-                      <p>Consectetur adipisicing elit. Ipsam ut praesentium, voluptate quidem necessitatibus quam nam officia soluta aperiam, recusandae.</p>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos facilis laboriosam, vitae ipsum tenetur atque vel repellendus culpa reiciendis velit quas, unde soluta quidem voluptas ipsam, rerum fuga placeat rem error voluptate eligendi modi. Delectus, iure sit impedit? Facere provident expedita itaque, magni, quas assumenda numquam eum! Sequi deserunt, rerum.</p><a href="#">Read more  </a>
+                    <div id="project_files" class="tab-pane cont">
+						<h3 title="Files">Files <a href="#" data-toggle="modal" data-target="#add_project_file_modal" class="btn btn-success btn-xs"><span class="mdi mdi-plus"></span> New file</a></h3>
+						<?php
+						
+							if($project['project_files_count']===0 || $project['project_files_count']===NULL)
+							{
+								echo '
+								<div class="empty_page">
+									<div class="empty_page_image"></div>
+									<div class="empty_page_content">There aren\'t any files in this project at the moment.<br/>When someone uploads a file or attaches it to a task, note, discussion, or comment - it\'ll show up here.</div>
+									<div class="empty_page_link"><a href="https://help.activecollab.com/books/projects/notes.html" target="_blank" class="print_hide">Learn more about working with notes.</a></div>
+								</div>';
+							}
+							else
+							{
+								echo '<hr/>';
+								echo 'here are your files';
+							}
+							
+						?>
+					</div>
+                    <div id="project_notes" class="tab-pane">
+						<h3 title="Notes">Notes <a href="#" data-toggle="modal" data-target="#add_project_note_modal" class="btn btn-success btn-xs"><span class="mdi mdi-plus"></span> New note</a></h3>
+						
+						<?php
+						
+							if($project['project_notes_count']===0 || $project['project_notes_count']===NULL)
+							{
+								echo '
+								<div class="empty_page">
+									<div class="empty_page_image"></div>
+									<div class="empty_page_content">Nobody has written anything yet.<br>Use notes for collaborative writing and group your ideas into collections.</div>
+									<div class="empty_page_link"><a href="https://help.activecollab.com/books/projects/notes.html" target="_blank" class="print_hide">Learn more about working with notes.</a></div>
+								</div>';
+							}
+							else
+							{
+								$project_notes_count = 0;
+								echo '<hr/><div class="row">';
+								foreach($project_notes as $note)
+								{
+									$project_notes_count++;
+									
+									echo '
+									<div class="col-md-6">
+										<div class="panel panel-contrast">
+											<div class="panel-heading panel-heading-contrast">
+												' . $note['project_note_title'] . '
+												<span class="panel-subtitle">Written by ' . $note['account_fname'] . ' ' . $note['account_lname'] . '</span>
+											</div>
+											<div class="panel-body" style="background: #ffface; padding: 10px;">' . $note['project_note_content'] . '</div>
+											<div class="panel-footer">
+												' . strip_tags($note['project_note_created']) . '
+											</div>
+										</div>
+									</div>';
+									
+									if($project_notes_count==$project['project_notes_count'])
+									{
+										echo '<div class="clearfix"></div>';
+									}
+								}
+								echo '</div>';
+							}
+							
+						?>
                     </div>
                     <div id="activity" class="tab-pane">
 						<h3 title="Activity">Activity</h3>
@@ -159,6 +201,34 @@
                     
                   </div>
                 </div>
+              </div>
+              <div class="panel panel-default panel-table">
+                <div class="panel-heading">Notifications</div>
+                <div class="panel-body">
+					<form action="#" style="border-radius: 0px;" class="form-horizontal group-border-dashed">
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label">Email</label>
+                      <div class="col-sm-6 xs-pt-5">
+                        <div class="switch-button switch-button-success">
+                          <input type="checkbox" checked="" name="swt5" id="swt5"><span>
+                            <label for="swt5"></label></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label">SMS</label>
+                      <div class="col-sm-6 xs-pt-5">
+                        <div class="switch-button switch-button-success">
+                          <input type="checkbox" checked="" name="swt5" id="swt5"><span>
+                            <label for="swt5"></label></span>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+				<div class="panel-footer">
+					<button class="btn btn-primary">Save settings</button>
+				</div>
               </div>
             </div>
           </div>
@@ -205,21 +275,117 @@
       </div>
     </div>
 	<!-- Add project modal end   -->
+	
+	<!-- Add project file modal start -->
+	<div id="add_project_file_modal" tabindex="-1" role="dialog" class="modal fade colored-header colored-header-success">
+		<div class="modal-dialog custom-width">
+			<div class="modal-content">
+				<div id="add_project_note_console"></div>
+				<form id="add_project_note">
+				<input type="hidden" name="project_id" id="project_id" value="<?= $project['project_id']; ?>"/>
+				<div class="modal-header">
+				<button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close"><span class="mdi mdi-close"></span></button>
+				<h3 class="modal-title">Add file to <?= $project['project_name']; ?></h3>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Title <span class="mandatory">*</span></label>
+						<input type="text" name="project_note_title" id="project_note_title" class="form-control"/>
+					</div>
+					<div id="project_note_content"></div>
+				</div>
+				<div class="modal-footer">
+				<button type="button" data-dismiss="modal" class="btn btn-default md-close">Cancel</button>
+				<button type="button" id="add_project_note" class="btn btn-success"><span class="mdi mdi-plus-square"></span> Add note</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Add project file modal end   -->
+	
+	<!-- Add project note modal start -->
+	<div id="add_project_note_modal" tabindex="-1" role="dialog" class="modal fade colored-header colored-header-success">
+		<div class="modal-dialog custom-width">
+			<div class="modal-content">
+				<div id="add_project_note_console"></div>
+				<form id="add_project_note">
+				<input type="hidden" name="project_id" id="project_id" value="<?= $project['project_id']; ?>"/>
+				<div class="modal-header">
+				<button type="button" data-dismiss="modal" aria-hidden="true" class="close md-close"><span class="mdi mdi-close"></span></button>
+				<h3 class="modal-title">Add note to <?= $project['project_name']; ?></h3>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Title <span class="mandatory">*</span></label>
+						<input type="text" name="project_note_title" id="project_note_title" class="form-control"/>
+					</div>
+					<div id="project_note_content"></div>
+				</div>
+				<div class="modal-footer">
+				<button type="button" data-dismiss="modal" class="btn btn-default md-close">Cancel</button>
+				<button type="button" id="add_project_note" class="btn btn-success"><span class="mdi mdi-plus-square"></span> Add note</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Add project note modal end   -->
     <?= global_load_scripts(); ?>
+	
+    <script src="<?= base_url('public/lib/summernote/summernote.min.js'); ?>" type="text/javascript"></script>
+    <script src="<?= base_url('public/lib/summernote/summernote-ext-beagle.js'); ?>" type="text/javascript"></script>
+    <script src="<?= base_url('public/js/app-form-wysiwyg.js'); ?>" type="text/javascript"></script>
     <script type="text/javascript">
       $(document).ready(function(){
       	//initialize the javascript
       	App.init();
 		
+      	App.textEditors();
+		
 		$( "#sortable" ).sortable({
       placeholder: "ui-state-highlight"
     });
 	
-		$('a.view_project_task').click(function(event)
+		$('tr#view_project_task').click(function(event)
 		{
 			event.preventDefault();
 			var url = $(this).attr('href');
 			$('div#view_project_task_modal .modal-content').load(url);
+		});
+		
+		$('button#add_project_note').click(function(event)
+		{
+			event.preventDefault();
+			var form_data = $('form#add_project_note').serializeArray();
+			form_data.push({name: 'project_note_content', value: $('div#project_note_content').summernote('code')});
+			
+			$.ajax(
+			{
+				type: 'POST',
+				url: '<?= base_url('projects/add_project_note'); ?>',
+				data: form_data,
+				success: function(data, status, xhr)
+				{
+					try 
+					{
+						var response = $.parseJSON(JSON.stringify(data));
+						console.log(response);
+						
+						if(response.status==200)
+						{
+						  window.location.replace(response['url']);
+						  console.log(response['url']);
+						}
+						else
+						{
+							$('div#add_project_note_console').html(data);
+						}
+					} catch(e) 
+					{
+					}
+				}
+			});
 		});
 		
 		$('button#add_project_task').click(function(event)

@@ -58,7 +58,8 @@
 					'account_id' 		=>	$result->account_id,
 					'account_fname' 	=>	$result->account_fname,
 					'account_email' 	=>	$result->account_email,
-					'account_phone' 	=>	$result->account_phone
+					'account_phone' 	=>	$result->account_phone,
+					'account_group_id'	=>	$result->account_group_id
 				);
 				
 				$this->session->set_userdata($session_array);
@@ -110,12 +111,14 @@
 				
 				$data = array
 				(
+					'account_group_id' => get_setting('default_user_group_id'),
 					'account_fname' => $account_fname,
 					'account_lname' => $account_lname,
 					'account_email' => $this->input->post('account_email'),
 					'account_phone' => $account_phone,
 					'account_password' => password_encrypt($this->input->post('account_password')),
 					'account_code'	=>	$account_code,
+					'account_avatar'	=>	$this->Accounts_Model->get_random_avatar(),
 					'account_created' => date('Y-m-d H:i:s')
 				);
 				
@@ -185,8 +188,6 @@
 		public function login()
 		{
 		}
-		
-		
 	}
 	
 ?>

@@ -29,19 +29,9 @@
 		
 		public function index()
 		{
-			
-			
-			// echo '<pre>';
-			// print_r($client->get('/projects/10/tasks')->getJson());
-			// echo '</pre>';
-			// echo '<pre>';
-			// print_r($authenticator);
-			// echo '</pre>';
-					
-					
 			$data = array
 			(
-				'webpage_title' => 'Available project',
+				'webpage_title' => 'Available projects',
 				'projects' => $this->Projects_Model->get_projects(),
 				'clients' => $this->Clients_Model->get_clients()
 			);
@@ -88,20 +78,16 @@
 		
 		public function view_project($project_id)
 		{
-			$config['base_url'] = 'http://example.com/index.php/test/page/';
-$config['total_rows'] = 200;
-$config['per_page'] = 20;
-
-$this->pagination->initialize($config);
-
 			$project_data = $this->Projects_Model->get_project($project_id);
 			$project_tasks_data = $this->Projects_Model->get_project_tasks($project_id);
+			$project_notes_data = $this->Projects_Model->get_project_notes($project_id);
 			
 			$data = array
 			(
 				'webpage_title' => $project_data['project_name'],
 				'project' => $project_data,
-				'project_tasks' => $project_tasks_data
+				'project_tasks' => $project_tasks_data,
+				'project_notes' => $project_notes_data
 			);
 			
 			$this->load->template('projects/view_project', $data);
@@ -166,8 +152,56 @@ $this->pagination->initialize($config);
 		
 		public function view_project_task($project_id, $project_task_id)
 		{
-			$data = $this->Projects_Model->get_project_task($project_id, $project_task_id);
+			$data = array
+			(
+				'task' => $this->Projects_Model->get_project_task($project_id, $project_task_id),
+				'comments' => $this->Projects_Model->get_project_task_comments($project_task_id)
+			);
+			
 			$this->load->template('projects/view_project_task', $data);
+		}
+		
+		public function add_project_note()
+		{
+			$this->form_validation->set_rules('project_note_title', 'Title', 'required');
+			$this->form_validation->set_rules('project_note_content', 'Content', 'required');
+			
+			if($this->form_validation->run() === FALSE)
+			{
+				echo validation_errors();
+			}
+			else
+			{
+				$data = array
+				(
+					'project_id' 			=> 	$this->input->post('project_id'),
+					'account_id' 			=> 	$this->session->userdata('account_id'),
+					'project_note_title' 	=> 	$this->input->post('project_note_title'),
+					'project_note_content'	=> 	$this->input->post('project_note_content'),
+					'project_note_created'	=> 	get_current_datetime()
+				);
+				
+				header('Content-Type: application/json');
+				
+				if($this->Projects_Model->add_project_note($data)===true)
+				{
+					$response = array
+					(
+						'status' => 200,
+						'url' => base_url('projects/view/' . $this->input->post('project_id'))
+					);
+				}
+				else
+				{
+					$response = array
+					(
+						'status' => 400,
+						'error' => 'General error. Contact Tech Support.'
+					);
+				}
+				
+				echo json_encode($response);
+			}
 		}
 		
 		public function add_project_discussion()
@@ -183,6 +217,29 @@ $this->pagination->initialize($config);
 				
 				echo 'bine ba';
 			}
+		}
+		
+		public function add_project_task_comment($project_task_id)
+		{
+			$this->form_validation->set_rules('project_task_comment_content', 'Content', 'required');
+			
+			if($this->form_validation->run() === FALSE)
+			{
+				echo validation_errors();
+			}
+			else
+			{
+				$data = array
+				(
+					'project_task_id'	=> 	$project_task_id,
+					'account_id' 		=> 	$this->session->userdata('account_id'),
+					'project_task_comment_content'	=>	$this->input->post('project_task_comment_content'),
+					'project_task_comment_created'	=>	get_current_datetime()
+				);
+				
+				$this->Projects_Model->add_project_task_comment($data);
+			}
+			
 		}
 	}
 	

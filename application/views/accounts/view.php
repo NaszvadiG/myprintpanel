@@ -21,12 +21,13 @@
             <div class="row">
               <div class="col-md-5">
                 <div class="user-display">
-                  <div class="user-display-bg"><img src="assets/img/user-profile-display.png" alt="Profile Background"></div>
+                  <div class="user-display-bg"><img src="http://myprintpanel.com/public/img/user-profile-display.png" alt="Profile Background"></div>
                   <div class="user-display-bottom">
-                    <div class="user-display-avatar"><img src="assets/img/avatar-150.png" alt="Avatar"></div>
+                    <div class="user-display-avatar"><img src="<?= get_avatar($account['account_id']); ?>" alt="Avatar"></div>
                     <div class="user-display-info">
                       <div class="name"><?= $account['account_fname'] . ' ' . $account['account_lname']; ?></div>
-                      <div class="nick"><span class="mdi mdi-account"></span> KDonny</div>
+                      <!--<div class="nick"><span class="mdi mdi-account"></span> KDonny</div> -->
+					  <hr/>
                     </div>
                     <div class="row user-display-details">
                       <div class="col-xs-4">
@@ -134,7 +135,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+           <!--  <div class="row">
               <div class="col-md-6">
                 <div class="panel panel-default">
                   <div class="panel-heading panel-heading-divider">Current Progress<span class="panel-subtitle">This is the user current progress widget</span></div>
@@ -214,8 +215,7 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </div>--></div>
         </div>
       </div>
       <?php echo $sidebar_right; ?>

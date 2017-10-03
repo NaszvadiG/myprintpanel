@@ -4,6 +4,37 @@
 	{
 		return date('Y-m-d H:i:s');
 	}
+	
+	function get_avatar($account_id)
+	{
+		if($account_id==NULL || $account_id=='NULL' || $account_id==false)
+		{
+					return base_url('public/img/not_assigned.png');
+		}
+		else
+		{
+			$CI =& get_instance();
+		
+			try
+			{
+				$query = $CI->db->select('account_avatar')->get_where('accounts', array('account_id' => $account_id));
+				
+				if($query->num_rows() === 1)
+				{
+					$result = $query->row_array();
+					return base_url('public/img/profiles/avatars/' . $result['account_avatar']);
+				}
+			}
+			catch(Exception $ex)
+			{
+			}
+		}
+	}
+	
+	function get_current_account_id()
+	{
+		return $this->session->userdata('account_id');
+	}
 
 	function global_load_styles()
 	{

@@ -17,26 +17,14 @@
       <div class="be-content">
 
        <div class="main-content container-fluid">
-         <?php
-		 
-			// echo '<pre>';
-			// print_r($projects);
-			// echo '</pre>';
-			
-		?>
           <div class="row">
             <!--Responsive table-->
             <div class="col-sm-12">
               <div class="panel panel-default panel-table">
                 <div class="panel-heading">Projects
-                  <div class="tools dropdown"><a href="#" data-toggle="modal" data-target="#form-bp1" class="btn btn-success"><span class="mdi mdi-plus-square"></span> Add project</a> <a href="#" type="button" data-toggle="dropdown" class="dropdown-toggle"><span class="icon mdi mdi-more-vert"></span></a>
-                    <ul role="menu" class="dropdown-menu pull-right">
-                      <li><a href="#">Export PDF</a></li>
-                      <li><a href="#">Export Excel</a></li>
-                      <li><a href="#">Something else here</a></li>
-                      <li class="divider"></li>
-                      <li><a href="#">Separated link</a></li>
-                    </ul>
+                  <div class="tools">
+				  <a href="#" data-toggle="modal" data-target="#form-bp1" class="btn btn-success"><span class="mdi mdi-plus-square"></span> Add project</a> 
+				  
                   </div>
                 </div>
                 <div class="panel-body">
@@ -57,7 +45,6 @@
                           <th style="width:1%;">Cloud</th>
                           <th style="width:10%;">Created</th>
                           <th style="width:10%;">Last modified</th>
-                          <th style="width:10%;"></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -65,7 +52,7 @@
 							foreach($projects as $project)
 							{
 								echo '
-								<tr>
+								<tr style="cursor: pointer; cursor: hand;"id="project_link" data-href="' . base_url('projects/view/' . $project['project_id']) . '">
 									<td>
 										<div class="be-checkbox be-checkbox-sm">
 											<input id="check2" type="checkbox">
@@ -78,15 +65,6 @@
 									<td align="center"></td>
 									<td>0/0</td>
 									<td>0/0</td>
-									<td class="text-right">
-										<div class="btn-group btn-hspace">
-											<button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">Options <span class="icon-dropdown mdi mdi-chevron-down"></span></button>
-                              <ul role="menu" class="dropdown-menu pull-right">
-                                <li><a href="' . base_url('projects/view/' . $project['project_id']) . '">View</a></li>
-                                <li><a href="#' . $project['project_id'] . '" style="color: #FF0000;" data-modal="delete_project_modal">Delete</a></li>
-                              </ul>
-                            </div>
-                          </td>
 								</tr>';
 							}
 							
@@ -124,6 +102,9 @@
                     </table>
                   </div>
                 </div>
+				<div class="panel-footer">
+					<p>With selected</p>
+				</div>
               </div>
             </div>
           </div>
@@ -199,6 +180,18 @@
       $(document).ready(function(){
       	//initialize the javascript
       	App.init();
+		
+		$('tr#project_link').click(function(event)
+		{
+			if (event.target.type == "checkbox") 
+			{
+				event.stopPropagation();
+			} 
+			else
+			{
+				window.location = $(this).data('href');
+			}
+		});
 		
 		$('button#add_project').click(function(event)
 		{

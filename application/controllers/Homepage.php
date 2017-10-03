@@ -16,6 +16,7 @@
 					redirect('login');
 				}
 			}
+			$this->load->model('Accounts_Model');
 		}
 		
 		public function index()

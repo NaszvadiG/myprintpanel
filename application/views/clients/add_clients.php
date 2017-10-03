@@ -21,46 +21,65 @@
 						  <div class="panel panel-default panel-border-color panel-border-color-default">
 							<div class="panel-heading panel-heading-divider">Account info<span class="panel-subtitle">This is the default bootstrap form layout</span></div>
 							<div class="panel-body">
-							  <form id="add_client">
+							  <form action="<?php echo base_url('clients/add_clients'); ?>" method="post" data-parsley-validate="">
+								<?php echo validation_errors('<div>', '</div>'); ?>
 								<div class="form-group xs-pt-10">
 								  <label>Email address</label>
-								  <input type="email" placeholder="Enter email" class="form-control">
+								  <input name="account_email" type="email" placeholder="(eg. george@package7.com)" class="form-control">
 								</div>
 								<div class="form-group">
 								  <label>Password</label>
-								  <input type="password" placeholder="Password" class="form-control">
+								  <input name="account_password" type="password" placeholder="Password" class="form-control">
 								</div>
 								<div class="form-group">
 								  <label>Confirm password</label>
-								  <input type="password" placeholder="Confirm password" class="form-control">
+								  <input name="account_password_confirm" type="password" placeholder="Confirm password" class="form-control">
 								</div>
 								<div class="form-group">
 								  <label>Mobile number</label>
-								  <input type="password" placeholder="Confirm password" class="form-control">
+								  <input name="account_phone" type="text" placeholder="(eg. 07841582659)" class="form-control">
 								</div>
 								<div class="form-group">
 								  <label>Main contact</label>
-								  <input type="password" placeholder="Confirm password" class="form-control">
+								  <input name="account_name" type="text" placeholder="(eg. Jon Snow)" class="form-control">
 								</div>
 								<div class="form-group">
 								  <label>Company name</label>
-								  <input type="password" placeholder="Confirm password" class="form-control">
+								  <input name="client_company" type="text" placeholder="(eg. Agency7 LLP)" class="form-control">
 								</div>
 								<div class="form-group">
 								  <label>Address</label>
-								  <input type="password" placeholder="Confirm password" class="form-control">
+								  <input name="client_company_address" type="text" placeholder="(eg. 123 High Street)" class="form-control">
+								</div>
+								<div class="row">
+								<div class="col-xs-6">
+									<div class="form-group">
+									  <label>City</label>
+									  <input name="client_company_city" type="text" placeholder="(eg. Birmingham)" class="form-control">
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div class="form-group">
+									  <label>State</label>
+									  <input name="client_company_state" type="text" placeholder="(eg. West Midlands)" class="form-control">
+									</div>
+								</div>
+								</div>
+								<div class="form-group">
+								  <label>Postcode</label>
+								  <input name="client_company_postcode" type="text" placeholder="(eg. B12 0JU)" class="form-control">
 								</div>
 								<div class="row xs-pt-15">
-								  <div class="col-xs-6">
+								  <div class="col-xs-8">
 									<div class="be-checkbox">
 									  <input id="check1" type="checkbox">
 									  <label for="check1">I let the customer know about our terms and condition</label>
 									</div>
 								  </div>
-								  <div class="col-xs-6">
+								  <div class="col-xs-4">
 									<p class="text-right">
-									  <button type="submit" class="btn btn-space btn-primary">Submit</button>
 									  <button class="btn btn-space btn-default">Cancel</button>
+									  <button type="submit" class="btn btn-space btn-primary">Submit</button>
 									</p>
 								  </div>
 								</div>
