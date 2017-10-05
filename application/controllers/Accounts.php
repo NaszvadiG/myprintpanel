@@ -56,10 +56,12 @@
 				(
 					'account_loggedin'	=>	true,
 					'account_id' 		=>	$result->account_id,
+					'account_parent' 	=>	$result->account_parent,
 					'account_fname' 	=>	$result->account_fname,
 					'account_email' 	=>	$result->account_email,
 					'account_phone' 	=>	$result->account_phone,
-					'account_group_id'	=>	$result->account_group_id
+					'account_group_id'	=>	$result->account_group_id,
+					'account_isadmin'	=>	$result->account_isadmin
 				);
 				
 				$this->session->set_userdata($session_array);
@@ -187,6 +189,11 @@
 		
 		public function login()
 		{
+		}
+		
+		public function forgot_password()
+		{
+			$this->load->template('accounts/forgot_password');
 		}
 	}
 	

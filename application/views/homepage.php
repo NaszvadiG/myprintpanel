@@ -16,9 +16,7 @@
       <?php echo $sidebar; ?>
       <div class="be-content">
         <div class="main-content container-fluid text-center">
-          <h3 class="text-center">You don't have a company. Yet ...</h3>
-		  <br/>
-		  <a href="#" class="btn btn-success btn-lg">Add &amp; verify company</a>
+          
         </div>
       </div>
       <?php echo $sidebar_right; ?>

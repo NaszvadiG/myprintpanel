@@ -23,7 +23,14 @@
               <div class="panel panel-default panel-table">
                 <div class="panel-heading">Projects
                   <div class="tools">
-				  <a href="#" data-toggle="modal" data-target="#form-bp1" class="btn btn-success"><span class="mdi mdi-plus-square"></span> Add project</a> 
+				  <?php
+				  
+					if($this->session->userdata('account_isadmin')==1)
+					{
+						echo '<a href="#" data-toggle="modal" data-target="#form-bp1" class="btn btn-success"><span class="mdi mdi-plus-square"></span> Add project</a> ';
+					}
+					
+				?>
 				  
                   </div>
                 </div>
@@ -48,24 +55,29 @@
                         </tr>
                       </thead>
                       <tbody>
+					  
 						<?php
-							foreach($projects as $project)
+						
+							if($projects!=false)
 							{
-								echo '
-								<tr style="cursor: pointer; cursor: hand;"id="project_link" data-href="' . base_url('projects/view/' . $project['project_id']) . '">
-									<td>
-										<div class="be-checkbox be-checkbox-sm">
-											<input id="check2" type="checkbox">
-											<label for="check2"></label>
-										</div>
-									</td>
-									<td>' . $project['project_name'] . '</td>
-									<td>0/0</td>
-									<td>' . $project['project_tasks_count'] . '</td>
-									<td align="center"></td>
-									<td>0/0</td>
-									<td>0/0</td>
-								</tr>';
+								foreach($projects as $project)
+								{
+									echo '
+									<tr style="cursor: pointer; cursor: hand;"id="project_link" data-href="' . base_url('projects/view/' . $project['project_id']) . '">
+										<td>
+											<div class="be-checkbox be-checkbox-sm">
+												<input id="check2" type="checkbox">
+												<label for="check2"></label>
+											</div>
+										</td>
+										<td>' . $project['project_name'] . '</td>
+										<td>0/0</td>
+										<td>' . $project['project_tasks_count'] . '</td>
+										<td align="center"></td>
+										<td>0/0</td>
+										<td>0/0</td>
+									</tr>';
+								}
 							}
 							
 						?>
@@ -125,7 +137,7 @@
 			<div id="add_project_console"></div>
 			<div class="form-group">
 				<label>Client <span class="mandatory">*</span></label>
-				<select class="form-control">
+				<select name="client_id" id="client_id" class="form-control">
 					<option value="0">-- Select client --</option>
 					<?php
 					

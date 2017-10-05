@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="<?php echo base_url('public/img'); ?>/logo-fav.png">
-    <title><?= get_website_title('Projects'); ?></title>
-    <?= global_load_styles(); ?>
-  </head>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="shortcut icon" href="<?php echo base_url('public/img'); ?>/logo-fav.png">
+<title><?= get_website_title('Projects'); ?></title>
+<?= global_load_styles(); ?>
+</head>
   <body>
-    <div class="be-wrapper">
+    <div class="be-wrapper<?= $style; ?>">
       <?php echo $header; ?>
       <?php echo $sidebar; ?>
       <div class="be-content">
@@ -28,15 +28,9 @@
             <!--Responsive table-->
             <div class="col-sm-12">
               <div class="panel panel-default panel-table">
-                <div class="panel-heading">Projects
-                  <div class="tools dropdown"><a href="#" data-toggle="modal" data-target="#form-bp1" class="btn btn-success"><span class="mdi mdi-plus-square"></span> Add project</a> <a href="#" type="button" data-toggle="dropdown" class="dropdown-toggle"><span class="icon mdi mdi-more-vert"></span></a>
-                    <ul role="menu" class="dropdown-menu pull-right">
-                      <li><a href="#">Export PDF</a></li>
-                      <li><a href="#">Export Excel</a></li>
-                      <li><a href="#">Something else here</a></li>
-                      <li class="divider"></li>
-                      <li><a href="#">Separated link</a></li>
-                    </ul>
+                <div class="panel-heading">Members
+                  <div class="tools dropdown">
+					<a href="#" data-toggle="modal" data-target="#form-bp1" class="btn btn-warning"><span class="mdi mdi-plus-square"></span> Add project</a>
                   </div>
                 </div>
                 <div class="panel-body">
@@ -52,11 +46,8 @@
                             </div>
                           </th>
                           <th style="width:20%;">Name</th>
-                          <th style="width:17%;">Milestones</th>
-                          <th style="width:15%;">Tasks</th>
-                          <th style="width:1%;">Cloud</th>
-                          <th style="width:10%;">Created</th>
-                          <th style="width:10%;">Last modified</th>
+                          <th style="width:17%;">Email</th>
+                          <th style="width:15%;">Phone</th>
                           <th style="width:10%;"></th>
                         </tr>
                       </thead>

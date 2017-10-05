@@ -1,8 +1,8 @@
 <?php
 
-	class Team_Model extends CI_Model
+	class Teams_Model extends CI_Model
 	{
-		public $_Rows = NULL;
+		public $_LastAccountId = null;
 		
 		public function __construct()
 		{
@@ -20,6 +20,19 @@
 			else
 			{
 				return $query->result_array();
+			}
+		}
+		
+		public function add_member($data)
+		{
+			if($this->db->insert('accounts', $data) && $this->db->affected_rows()==1)
+			{
+				$this->_LastAccountId = $this->db->insert_id();
+				return true;
+			}
+			else
+			{
+				return false;
 			}
 		}
 	}

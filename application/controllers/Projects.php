@@ -29,10 +29,19 @@
 		
 		public function index()
 		{
+			if($this->session->userdata('account_isadmin')==0 || $this->session->userdata('account_isadmin')==false)
+			{
+				$projects_data = $this->Projects_Model->get_projects($this->Projects_Model->get_client_id($this->session->userdata('account_id')));
+			}
+			else
+			{
+				$projects_data = $this->Projects_Model->get_projects();
+			}
+			
 			$data = array
 			(
 				'webpage_title' => 'Available projects',
-				'projects' => $this->Projects_Model->get_projects(),
+				'projects' => $projects_data,
 				'clients' => $this->Clients_Model->get_clients()
 			);
 			
@@ -52,6 +61,7 @@
 			{
 				$data = array
 				(
+					'client_id' => $this->input->post('client_id'),
 					'account_id' => $this->session->userdata('account_id'),
 					'project_name' => $this->input->post('project_name'),
 					'project_description' => $this->input->post('project_description'),

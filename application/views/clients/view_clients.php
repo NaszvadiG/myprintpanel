@@ -49,7 +49,6 @@
                               <label for="check1"></label>
                             </div>
                           </th>
-                          <th style="width:20%;">Name</th>
                           <th style="width:17%;">Company</th>
                           <th style="width:15%;">Projects</th>
                           <th style="width:1%;">Tasks</th>
@@ -69,7 +68,6 @@
 											<label for="check2"></label>
 										</div>
 									</td>
-									<td>' . $client['client_name'] . '</td>
 									<td>' . $client['client_company'] . '</td>
 									<td></td><td>0/0</td>
 									<td>0/0</td>

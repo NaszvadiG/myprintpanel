@@ -98,7 +98,7 @@
 						foreach($project_tasks as $project_task)
 						{
 						echo '
-						<tr id="view_project_task" data-toggle="modal" data-target="#view_project_task_modal"  href="' . base_url('projects/view/' . $project_task['project_id'] . '/task/' . $project_task['project_task_id']) . '">
+						<tr id="view_project_task" data-toggle="modal" data-target="#view_project_task_modal"  href="' . base_url('projects/view_project_task/' . $project_task['project_id'] . '/' . $project_task['project_task_id']) . '">
 							<td width="1"><span class="mdi mdi-more-vert" style="cursor: move;"></span></td>
 							<td>
 								<div class="be-checkbox">

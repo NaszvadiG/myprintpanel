@@ -59,7 +59,7 @@
 		
 		public function login_account($data)
 		{
-			$query = $this->db->select('account_id, account_group_id, account_fname, account_lname, account_email, account_phone, account_password')->get_where('accounts', array('account_email' => $data['account_email']));
+			$query = $this->db->select('account_id, account_group_id, account_parent, account_fname, account_lname, account_email, account_phone, account_password, account_isadmin')->get_where('accounts', array('account_email' => $data['account_email']));
 			 
 			if($query->num_rows()==1)
 			{

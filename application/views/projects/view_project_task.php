@@ -52,32 +52,38 @@
 				// print_r($comments);
 				// echo '</pre>';
 				
-				foreach($comments as $comment)
+				if($comments!=false)
 				{
-					echo '
-					<li style="margin-bottom: 25px;">
-						<div class="comment">
-							<div class="row">
-								<div class="col-sm-2" align="center">
-									<img src="' . get_avatar($comment['account_id']) . '" style="height: 35px;" class="img-circle" alt="Avatar">
+					foreach($comments as $comment)
+					{
+						echo '
+						<li style="margin-bottom: 25px;">
+							<div class="comment">
+								<div class="row">
+									<div class="col-sm-2" align="center">
+										<img src="' . get_avatar($comment['account_id']) . '" style="height: 35px;" class="img-circle" alt="Avatar">
+									</div>
+									<div class="col-sm-10">
+										<div style="border-radius: 5px; background: #eeeeee; padding: 15px;">' . $comment['project_task_comment_content'] . '</div>
+									</div>
 								</div>
-								<div class="col-sm-10">
-									<div style="border-radius: 5px; background: #eeeeee; padding: 15px;">' . $comment['project_task_comment_content'] . '</div>
-								</div>
+								<div class="clearfix"></div>
 							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="comment-info" align="right"><small>' . $comment['account_fname'] . ' ' . $comment['account_lname'] . ' &bull; ' . $comment['project_task_comment_created'] . '</small></div>
-					</li>
-					';
+							<div class="comment-info" align="right"><small>' . $comment['account_fname'] . ' ' . $comment['account_lname'] . ' &bull; ' . $comment['project_task_comment_created'] . '</small></div>
+						</li>
+						';
+					}
+				}
+				else
+				{
+					echo 'No comments at the moment';
 				}
 				
 				?>
 			</ul>
           </div>
           <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn btn-default md-close">Cancel</button>
-            <button type="button" id="add_project_task" class="btn btn-primary"><span class="mdi mdi-plus-square"></span> Add task</button>
+           
           </div>
 
 		  
@@ -128,6 +134,7 @@ $(document).ready(function()
 					data: $(this).serialize(),
 					success: function(data, status, xhr)
 					{
+						window.location.reload();
 						try 
 						{
 							var response = $.parseJSON(JSON.stringify(data));

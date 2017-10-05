@@ -43,7 +43,7 @@
                         <label for="remember">Remember Me</label>
                       </div>
                     </div>
-                    <div class="col-xs-6 login-forgot-password"><a href="#">Forgot Password?</a></div>
+                    <div class="col-xs-6 login-forgot-password"><a href="<?= base_url('forgot-password'); ?>">Forgot Password?</a></div>
                   </div>
                   <div class="form-group login-submit">
                     <button data-dismiss="modal" type="submit" class="btn btn-primary btn-xl">Sign me in</button>

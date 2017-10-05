@@ -69,12 +69,79 @@
 			}
 		}
 		
-		public function get_projects()
+		public function get_client_id($account_id)
 		{
 			try
 			{
-				$query = $this->db->select('*')->from('projects')->get()->result_array();
-				return $query;
+				$query = $this->db->select('account_parent')->get_where('accounts', array('account_id' => $account_id));
+				
+				if($query->num_rows() == 1)
+				{
+					$result = $query->row_array();
+					
+					// account is owner, we can proceed on retriving the client_id
+					if(empty($result['account_parent']) || is_null($result['account_parent']))
+					{
+						$query = $this->db->select('client_id')->get_where('clients', array('account_id' => $account_id));
+						
+						if($query->num_rows() == 1)
+						{
+							$return = $query->row_array();
+							return $return['client_id'];
+						}
+						else
+						{
+							return false;
+						}
+					}
+					else
+					{
+						// account is not an owner, we can itinerate through the accounts
+						$query = $this->db->select('client_id')->get_where('clients', array('account_id' => $result['account_parent']));
+						
+						if($query->num_rows() == 1)
+						{
+							$return = $query->row_array();
+							return $return['client_id'];
+						}
+						else
+						{
+							return false;
+						}
+					}
+				}
+				else
+				{
+					// account doesn't exist
+					return false;
+				}
+			}
+			catch(Exception $ex)
+			{
+			}
+		}
+		
+		public function get_projects($client_id = null)
+		{
+			try
+			{
+				if($client_id === null)
+				{
+					$query = $this->db->select('*')->from('projects')->get();
+				}
+				else
+				{
+					$query = $this->db->select('*')->get_where('projects', array('client_id' => $client_id));
+				}
+				
+				if($query->num_rows() == 0)
+				{
+					return false;
+				}
+				else
+				{
+					return $query->result_array();
+				}
 			}
 			catch(Exception $ex)
 			{
@@ -245,7 +312,7 @@
 		{
 			try
 			{
-				$query = $this->db->query("SELECT * FROM projects_tasks_comments AS t1 LEFT JOIN projects_tasks AS t2 ON t2.project_task_id=t1.project_task_id LEFT JOIN accounts AS t3 ON t3.account_id=t1.account_id ORDER BY project_task_comment_created DESC");
+				$query = $this->db->query("SELECT * FROM projects_tasks_comments AS t1 LEFT JOIN projects_tasks AS t2 ON t2.project_task_id=t1.project_task_id LEFT JOIN accounts AS t3 ON t3.account_id=t1.account_id WHERE t1.project_task_id='$project_task_id' ORDER BY project_task_comment_created DESC");
 				
 				if($query->num_rows()==0)
 				{
@@ -265,7 +332,7 @@
 		public function get_project_notes($project_id)
 		{
 			try {
-				$query = $this->db->query("SELECT * FROM projects_notes AS t1 LEFT JOIN accounts AS t2 ON t2.account_id=t1.account_id");
+				$query = $this->db->query("SELECT * FROM projects_notes AS t1 LEFT JOIN accounts AS t2 ON t2.account_id=t1.account_id WHERE t1.project_id='$project_id'");
 				
 				if($query->num_rows()==0)
 				{
