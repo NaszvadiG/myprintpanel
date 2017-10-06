@@ -23,7 +23,26 @@
 		{
 			$data = array('user' => $_SESSION, 'webpage_title' => 'Dashboard');
 			
-			$this->load->template('homepage', $data);
+			if($this->session->userdata('isadmin')==0)
+			{
+				$this->load->model('Clients_Model');
+				$this->load->model('Projects_Model');
+				$projects_data = $this->Projects_Model->get_projects($this->Projects_Model->get_client_id($this->session->userdata('account_id')));
+			
+			
+			$data = array
+			(
+				'webpage_title' => 'Dashboard',
+				'projects' => $projects_data,
+				'clients' => $this->Clients_Model->get_clients()
+			);
+			
+				$this->load->template('projects/view_projects', $data);
+			}
+			else
+			{
+				$this->load->template('homepage', $data);
+			}
 		}
 	}
 	

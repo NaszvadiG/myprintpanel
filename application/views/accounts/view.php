@@ -27,9 +27,9 @@
                     <div class="user-display-info">
                       <div class="name"><?= $account['account_fname'] . ' ' . $account['account_lname']; ?></div>
                       <!--<div class="nick"><span class="mdi mdi-account"></span> KDonny</div> -->
-					  <hr/>
+				
                     </div>
-                    <div class="row user-display-details">
+                   <!-- <div class="row user-display-details">
                       <div class="col-xs-4">
                         <div class="title">Issues</div>
                         <div class="counter">26</div>
@@ -42,11 +42,13 @@
                         <div class="title">Followers</div>
                         <div class="counter">26</div>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <div class="user-info-list panel panel-default">
-                  <div class="panel-heading panel-heading-divider">About Me<span class="panel-subtitle">I am a web developer and designer based in Montreal - Canada, I like read books, good music and nature.</span></div>
+                  <div class="panel-heading panel-heading-divider">
+					Basic info
+					<span class="panel-subtitle">From here you can change your basic information</span></div>
                   <div class="panel-body">
                     <table class="no-border no-strip skills">
                       <tbody class="no-border-x no-border-y">
@@ -76,63 +78,6 @@
                 </div>
               </div>
               <div class="col-md-7">
-                <div class="widget widget-fullwidth widget-small">
-                  <div class="widget-head xs-pb-30">
-                    <div class="tools"><span class="icon mdi mdi-chevron-down"></span><span class="icon mdi mdi-refresh-sync"></span><span class="icon mdi mdi-close"></span></div>
-                    <div class="title">Development Activity</div>
-                  </div>
-                  <div class="widget-chart-container">
-                    <div id="bar-chart1" style="height: 180px;"></div>
-                    <table class="table table-striped table-hover">
-                      <thead>
-                        <tr>
-                          <th style="width:37%;">User</th>
-                          <th style="width:36%;">Commit</th>
-                          <th>Date</th>
-                          <th class="actions"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="user-avatar"> <img src="assets/img/avatar6.png" alt="Avatar">Penelope Thornton</td>
-                          <td>Initial commit</td>
-                          <td>Aug 6, 2015</td>
-                          <td class="actions"><a href="#" class="icon"><i class="mdi mdi-delete"></i></a></td>
-                        </tr>
-                        <tr>
-                          <td class="user-avatar"> <img src="assets/img/avatar4.png" alt="Avatar">Benji Harper</td>
-                          <td>Main structure markup</td>
-                          <td>Jul 28, 2015</td>
-                          <td class="actions"><a href="#" class="icon"><i class="mdi mdi-delete"></i></a></td>
-                        </tr>
-                        <tr>
-                          <td class="user-avatar"> <img src="assets/img/avatar5.png" alt="Avatar">Justine Myranda</td>
-                          <td>Left sidebar adjusments</td>
-                          <td>Jul 15, 2015</td>
-                          <td class="actions"><a href="#" class="icon"><i class="mdi mdi-delete"></i></a></td>
-                        </tr>
-                        <tr>
-                          <td class="user-avatar"> <img src="assets/img/avatar3.png" alt="Avatar">Sherwood Clifford</td>
-                          <td>Topbar dropdown style</td>
-                          <td>Jun 30, 2015</td>
-                          <td class="actions"><a href="#" class="icon"><i class="mdi mdi-delete"></i></a></td>
-                        </tr>
-                        <tr>
-                          <td class="user-avatar"> <img src="assets/img/avatar.png" alt="Avatar">Kristopher Donny</td>
-                          <td>Left sidebar adjusments</td>
-                          <td>Jul 15, 2015</td>
-                          <td class="actions"><a href="#" class="icon"><i class="mdi mdi-delete"></i></a></td>
-                        </tr>
-                        <tr>
-                          <td class="user-avatar"> <img src="assets/img/avatar2.png" alt="Avatar">Adeline Shepherd</td>
-                          <td>Topbar dropdown style</td>
-                          <td>Jun 30, 2015</td>
-                          <td class="actions"><a href="#" class="icon"><i class="mdi mdi-delete"></i></a></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
               </div>
             </div>
            <!--  <div class="row">

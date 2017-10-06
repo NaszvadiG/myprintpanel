@@ -79,6 +79,12 @@ class MY_Loader extends CI_Loader {
 			array_push($menu, '<li' . $this->active_menu('orders') . '><a href="' . base_url('orders') . '"><i class="icon mdi icon mdi-assignment"></i> Orders</a></li>');
 		}
 		
+		if($this->CI->Accounts_Model->get_permission($this->CI->session->userdata('account_group_id'), 'view_invoices')===true)
+		{
+			
+			array_push($menu, '<li' . $this->active_menu('invoices') . '><a href="' . base_url('invoices') . '"><i class="icon mdi icon mdi-accounts-list"></i> Invoices</a></li>');
+		}
+		
 		if($this->CI->Accounts_Model->get_permission($this->CI->session->userdata('account_group_id'), 'view_teams')===true)
 		{
 			
